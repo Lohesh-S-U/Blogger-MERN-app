@@ -13,8 +13,21 @@ header{
   background: white;
 }
 
+.container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
 .post-details{
   background-color: white;
   margin: 2rem;
+}
+
+.error{
+  border: red;
+  margin: 0.5rem;
+  color: brown;
 }
 
