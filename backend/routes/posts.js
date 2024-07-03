@@ -1,8 +1,11 @@
 const express=require('express')
 const { getPosts, getPost, createPost, deletePost, updatePost } = require('../controllers/postsController')
+const requireAuth = require('../middleware/requireAuth')
 
 
 const router = express.Router()
+
+router.use(requireAuth)
 
 router.get('/',getPosts)
 

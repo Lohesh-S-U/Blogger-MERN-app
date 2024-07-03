@@ -1,22 +1,29 @@
 import { useState } from "react"
 import { usePostsContext } from "../hooks/usePostsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const PostForm = ()=>{
     const {dispatch} = usePostsContext()
     const [title,setTitle] = useState("")
     const [body,setBody] = useState("")
     const [error,setError] = useState(null)
+    const {user} = useAuthContext()
 
     async function handleSubmit(e){
         e.preventDefault()
 
-        const post = {title,body}
+        if(!user){
+            setError('User not logged in')
+            return
+        }
 
+        const post = {title,body}
         const response = await fetch('http://localhost:4000/api/posts',{
             method : 'POST',
             body : JSON.stringify(post),
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${user.token}`
             }
         })
         const json = await response.json()
